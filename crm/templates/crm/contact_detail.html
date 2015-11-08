@@ -1,0 +1,250 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<div class="container">
+   <h1>Détails sur {{ contact.prenom }} {{ contact.nom}}</h1>
+
+   {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+   <form action="{% url 'crm:update contact' contact.id %}" class="form-horizontal" role="form" method="post">
+   {% csrf_token %}
+<div class="panel panel-default">
+<div class="panel-title">
+Informations sur le contact
+</div>
+<div class="panel-body">
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="salutation">Salutation :</label>
+      <div class="col-sm-10">
+         <input type="text" id="salutation" name="salutation" class="form-control" value="{{ contact.salutation }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="prenom">Prenom :</label>
+      <div class="col-sm-10">
+         <input type="text" id="prenom" name="prenom" class="form-control" value="{{ contact.prenom }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="nom">Nom :</label>
+      <div class="col-sm-10">
+         <input type="text" id="nom" name="nom" class="form-control" value="{{ contact.nom }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="titre">Titre :</label>
+      <div class="col-sm-10">
+         <input type="text" id="titre" name="titre" class="form-control" value="{{ contact.titre }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="telephone">Téléphone :</label>
+      <div class="col-sm-10">
+         <input type="text" id="telephone" name="telephone" class="form-control" value="{{ contact.telephone }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="autre_telephone">Autre téléphone :</label>
+      <div class="col-sm-10">
+         <input type="text" id="autre_telephone" name="autre_telephone" class="form-control" value="{{ contact.autre_telephone }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="courriel">Courriel :</label>
+      <div class="col-sm-10">
+         <input type="text" id="courriel" name="courriel" class="form-control" value="{{ contact.courriel }}" />
+         <p class="form-control-static"><a href="mailto:{{ contact.courriel }}">Cliquer pour envoyer un courriel</a></p>
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="autre_courriel">Autre courriel :</label>
+      <div class="col-sm-10">
+         <input type="text" id="autre_courriel" name="autre_courriel" class="form-control" value="{{ contact.autre_courriel }}" />
+         <p class="form-control-static"><a href="mailto:{{ contact.courriel }}">Cliquer pour envoyer un courriel</a></p>
+      </div>
+   </div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-title">
+Informations sur l'organisation
+</div>
+<div class="panel-body">
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="organisation">Organisation :</label>
+      <div class="col-sm-10">
+         <input type="text" id="organisation" name="organisation" class="form-control" value="{{ contact.organisation }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="date_entree">Date d'entrée :</label>
+      <div class="col-sm-10">
+         <input type="text" id="date_entree" name="date_entree" class="form-control" value="{{ contact.date_entree|date:"Y-m-d" }}" />
+         <p class="form-control-static">Format : "AAAA-MM-JJ"</p>
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="adresse1">Adresse 1 :</label>
+      <div class="col-sm-10">
+         <input type="text" id="adresse1" name="adresse1" class="form-control" value="{{ contact.adresse1 }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="adresse2">Adresse 2 :</label>
+      <div class="col-sm-10">
+         <input type="text" id="adresse2" name="adresse2" class="form-control" value="{{ contact.adresse2 }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="ville">Ville :</label>
+      <div class="col-sm-10">
+         <input type="text" id="ville" name="ville" class="form-control" value="{{ contact.ville }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="province">Province :</label>
+      <div class="col-sm-10">
+         <input type="text" id="province" name="province" class="form-control" value="{{ contact.province }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="code_postal">Code postal :</label>
+      <div class="col-sm-10">
+         <input type="text" id="code_postal" name="code_postal" class="form-control" value="{{ contact.code_postal }}" />
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="categorie">Catégorie :</label>
+      <div class="col-sm-10">
+         <select name="categorie" class="form-control" >
+         {% for categorie in categorie_list %}
+            <option value="{{ categorie.id }}" {% if categorie == contact.categorie %}Selected{% endif %} > {{ categorie.categorie }}</option>
+         {% endfor %}
+         </select>
+      </div>
+   </div>
+</div>
+</div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="statut_contact">Statut du contact :</label>
+      <div class="col-sm-10">
+         <select name="statut_contact" class="form-control" >
+         {% for statut in statut_contact_list %}
+            <option value="{{ statut.id }}" {% if statut == contact.statut_contact %}Selected{% endif %} > {{ statut.statut }}</option>
+         {% endfor %}
+         </select>
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="statut_campagne">Statut de campagne :</label>
+      <div class="col-sm-10">
+         <select name="statut_campagne" class="form-control" >
+         {% for statut in statut_campagne_list %}
+            <option value="{{ statut.id }}" {% if statut == contact.statut_campagne %}Selected{% endif %} > {{ statut.statut }}</option>
+         {% endfor %}
+         </select>
+      </div>
+   </div>
+   <div class="checkbox">
+      <p>
+      <label> <input type="checkbox" value = "{{ contact.carte_noel }}">Carte de Noël</label>
+   </div>
+   <div class="col-sm-10">
+      <button type="submit" class="btn btn-default">Mettre le contact à jour</button>
+   </div>
+   </form>
+</div>
+<p>
+<div class="container">
+<div class="panel panel-default">
+<div class="panel-title">
+Notes
+</div>
+<div class="panel-body">
+   <div class="form-group">
+      <table class="table table-hover">
+         <tr><th>date</th><th>Texte</th><th>Utilisateur</th></tr>
+         {% for note in contact.notes_set.all %}
+            <tr><td>{{ note.date }}</td><td>{{ note.texte }}</td><td>{{ note.utilisateur }}</td>
+         {% endfor %}
+      </table>
+   </div>
+   <p>
+   <form action="{% url 'crm:ajouter note' contact.id %}" class="form-horizontal" role="form" method="post">
+   {% csrf_token %}
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="note">Note :</label>
+      <div class="col-sm-10">
+         <input type="text" id="note" name="note" class="form-control" maxlength=2000 size=200/><br>
+      </div>
+   </div>
+   <div class="col-sm-10">
+      <button type="submit" class="btn btn-default">Ajouter une note</button>
+   </div>
+   </form>
+</div>
+</div>
+</div>
+<p>
+<div class="container">
+<div class="panel panel-default">
+<div class="panel-title">
+Dons
+</div>
+<div class="panel-body">
+   <div class="form-group">
+      <table class="table table-hover">
+         <tr><th>Année</th><th>Montant</th><th>Type de don</th></tr>
+         {% for don in contact.dons_set.all %}
+            <tr><td>{{ don.annee }}</td><td>{{ don.don }}</td><td>{{ don.type_don.type_don }}</td>
+         {% endfor %}
+      </table>
+   </div>
+   <form action="{% url 'crm:ajouter don' contact.id %}" class="form-horizontal" role="form" method="post">
+   {% csrf_token %}
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="don">Montant du don :</label>
+      <div class="col-sm-10">
+         <input type="text" id="note" name="don" class="form-control" maxlength=10 size=10/><br>
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="annee">Année du don :</label>
+      <div class="col-sm-10">
+         <input type="text" id="annee" name="annee" class="form-control" maxlength=5 size=5/><br>
+      </div>
+   </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="type_don">Type de don :</label>
+      <div class="col-sm-10">
+         <select name="type_don" class="form-control" >
+         {% for type_don in type_don_list %}
+            <option value="{{ type_don.id }}" > {{ type_don.type_don }}</option>
+         {% endfor %}
+         </select>
+      </div>
+   </div>
+   <div class="col-sm-10">
+      <button type="submit" class="btn btn-default">Ajouter un don</button>
+   </div>
+   </form>
+</div>
+</div>
+</div>
+<p>
+<div class="container">
+   <form action="{% url 'crm:liste contacts' %}" class="form-horizontal" role="form" method="get">
+   {% csrf_token %}
+   <input type="hidden" value="{{ prenom }}" name="prenom">
+   <input type="hidden" value="{{ nom }}" name="nom">
+   <input type="hidden" value="{{ organisation }}" name="organisation">
+   <input type="hidden" value="{{ statut_contact.statut }}" name="statut_contact">
+   <input type="hidden" value="{{ statut_campagne.statut }}" name="statut_campagne">
+   <input type="hidden" value="{{ categorie.categorie }}" name="categorie">
+   <div class="col-sm-10">
+      <button type="submit" class="btn btn-default">Retourner à la liste</button>
+   </div>
+   </form>
+</div>
+<p>

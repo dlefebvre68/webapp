@@ -1,0 +1,39 @@
+li a {
+    color: geen;
+}
+
+body {
+    background-color: #eeeeee;
+}
+
+h1 {
+    font-family: "Verdana", sans-serif;
+    font-size: 2em;
+    text-align: center;
+}
+
+label {
+    font-family: "Verdana", sans-serif;
+    font-size: 1em;
+}
+
+li {
+    font-family: "Verdana", sans-serif;
+    font-size: 1em;
+}
+
+div {
+    display: block;
+}
+
+input, textarea, select, button {
+  width : 200px;
+  margin: 0;
+
+  -webkit-box-sizing: border-box; /* Pour les anciennes versions des navigateurs WebKit */
+     -moz-box-sizing: border-box; /* Pour tous les navigateurs Gecko */
+          box-sizing: border-box;
+
+    font-family: "Verdana", sans-serif;
+    font-size: 1em;
+}

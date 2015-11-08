@@ -1,0 +1,37 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<div class="container">
+<h1>Liste des organisations</h1>
+{% if org_list %}
+   <ul>
+   {% for org in org_list %}
+      <li><a href= "{% url 'crm:org detail' org.id %}">{{ org.nom }}</a></li>
+   {% endfor %}
+   </ul>
+{% else %}
+   <p>Aucune organisation disponible.</p>
+{% endif %}
+</div>
+<div class="container">
+<form action="{% url 'crm:nouvelle org' %}" class="form-horizontal" role="form" method="post">
+{% csrf_token %}
+<div class="form-group">
+<div class="col-sm-10">
+<button type="submit" class="btn btn-default">Nouvelle organisation</button>
+</div>
+</div>
+</form>
+</div>
+<div class="container">
+<form action="{% url 'crm:index' %}" class="form-horizontal" role="form" method="get">
+{% csrf_token %}
+<div class="form-group">
+<div class="col-sm-10">
+<button type="submit" class="btn btn-default">Menu principal</button>
+</div>
+</div>
+</form>
+</div>

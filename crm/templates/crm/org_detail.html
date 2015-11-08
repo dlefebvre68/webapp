@@ -1,0 +1,73 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<div class="container">
+<h1>Détails sur {{ org.nom}}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form action="{% url 'crm:update org' org.id %}" class="form-horizontal" role="form" method="post">
+{% csrf_token %}
+<div class="form-group">
+<label class="control-label col-sm-2" for="nom">Nom :</label>
+<div class="col-sm-10">
+<input type="text" id="nom" name="nom" class="form-control" value="{{ org.nom }}" />
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-2" for="telephone">Telephone :</label>
+<div class="col-sm-10">
+<input type="text" id="telephone" name="telephone" class="form-control" value="{{ org.telephone }}" />
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-2" for="date_entree">Date d'entrée :</label>
+<div class="col-sm-10">
+<input type="date" id="date_entree" name="date_entree" class="form-control" value="{{ org.date_entree }}"/>
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-2" for="adresse1">Adresse 1 :</label>
+<div class="col-sm-10">
+<input type="text" id="adresse1" name="adresse1" class="form-control" value="{{ org.adresse1 }}"/>
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-2" for="adresse2">Adresse 2 :</label>
+<div class="col-sm-10">
+<input type="text" id="adresse2" name="adresse2" class="form-control" value="{{ org.adresse2 }}"/>
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-2" for="ville">Ville :</label>
+<div class="col-sm-10">
+<input type="text" id="ville" name="ville" class="form-control" value="{{ org.ville }}"/>
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-2" for="province">Province :</label>
+<div class="col-sm-10">
+<input type="text" id="province" name="province" class="form-control" value="{{ org.province }}"/>
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-2" for="code_postal">Code postal :</label>
+<div class="col-sm-10">
+<input type="text" id="code_postal" name="code_postal" class="form-control" value="{{ org.code_postal }}"/>
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-10">
+<button type="submit" class="btn btn-default">Mettre à jour</button>
+</div>
+</div>
+</form>
+<p>
+<form action="{% url 'crm:liste org' %}" class="form-horizontal" role="form" method="get">
+{% csrf_token %}
+<div class="form-group">
+<button type="submit" class="btn btn-default">Retourner à la liste</button>
+</div>
+</form>
+</div>
